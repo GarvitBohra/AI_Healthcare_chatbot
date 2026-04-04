@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare Connect | Google Cloud Edition</title>
+    <!-- Google Fonts for a modern, sleek look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Main App Container using Glassmorphism -->
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="cube-icon"></div>
+                <h2>HealthConnect</h2>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-item active" id="nav-dashboard">Dashboard</button>
+                <button class="nav-item" id="nav-messages">Messages</button>
+                <button class="nav-item" id="nav-metrics">Health Metrics</button>
+                <button class="nav-item" id="nav-settings">Settings</button>
+            </nav>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Jane+Doe&background=random" alt="Patient" class="avatar">
+                <div>
+                    <h4>Jane Doe</h4>
+                    <p>Patient Portal</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <header class="top-header">
+                <h1>Welcome back, Jane! 👋</h1>
+                <p>Track your health and securely communicate with your doctor.</p>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Vitals Tracking Section -->
+                <section class="vitals-section fade-in">
+                    <h3>Today's Vitals</h3>
+                    <div class="cards-container">
+                        
+                        <div class="metric-card hover-glow">
+                            <div class="card-header">
+                                <span class="icon">❤️</span>
+                                <h4>Heart Rate</h4>
+                            </div>
+                            <div class="card-value" id="heart-rate-display">72 <span class="unit">bpm</span></div>
+                            <p class="status normal">Normal</p>
+                        </div>
+
+                        <div class="metric-card hover-glow">
+                            <div class="card-header">
+                                <span class="icon">🩸</span>
+                                <h4>Blood Pressure</h4>
+                            </div>
+                            <div class="card-value" id="bp-display">120/80 <span class="unit">mmHg</span></div>
+                            <p class="status normal">Excellent</p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Secure Communication Section (Firebase Mock) -->
+                <section class="chat-section fade-in delay-1">
+                    <h3>Provider Chat</h3>
+                    <div class="chat-box" id="chat-box">
+                        <div class="message received">
+                            <p><strong>Dr. Smith:</strong> Hello Jane, your Recent blood work looks perfect! Keep up the good work.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-area">
+                        <input type="text" id="message-input" placeholder="Type a message to your doctor...">
+                        <button id="send-btn" class="primary-btn">Send</button>
+                    </div>
+                    <p class="cloud-note">Hosted securely on Google Cloud</p>
+                </section>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Main Logic Script -->
+    <script src="app.js"></script>
+</body>
+</html>
