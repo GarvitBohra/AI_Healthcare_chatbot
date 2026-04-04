@@ -43,7 +43,21 @@ if (sendBtn && messageInput) {
             messageInput.value = "";
 
             setTimeout(() => {
-                appendMessage("Message safely logged to database. Your provider will review it shortly. ✅", "System (Google Cloud Mock)", "received");
+                const lowerMsg = messageText.toLowerCase();
+                let botResponse = "Your message has been securely logged. A provider will review it shortly. ✅";
+                
+                // Simple Chatbot Decision Logic
+                if (lowerMsg.includes("appointment") || lowerMsg.includes("schedule")) {
+                    botResponse = "I see you're asking about scheduling. Would you like to see available times for Dr. Smith this week? 📅";
+                } else if (lowerMsg.includes("prescription") || lowerMsg.includes("refill") || lowerMsg.includes("medication")) {
+                    botResponse = "I have flagged your refill request. Your provider will authorize it with your pharmacy within 24 hours. 💊";
+                } else if (lowerMsg.includes("pain") || lowerMsg.includes("hurt") || lowerMsg.includes("emergency")) {
+                    botResponse = "If you are experiencing a medical emergency, please call 911 immediately or go to the nearest emergency room. 🚨";
+                } else if (lowerMsg.includes("hello") || lowerMsg.includes("hi") || lowerMsg.includes("hey")) {
+                    botResponse = "Hello! I am the HealthConnect virtual assistant. How can I help coordinate your care today? 🏥";
+                }
+
+                appendMessage(botResponse, "HealthConnect Assistant", "received");
             }, 1200);
         }
     });
