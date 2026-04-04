@@ -181,6 +181,11 @@ body {
     color: #a0aec0;
 }
 
+.card-header .icon {
+    color: #ff4d4d;
+    font-size: 28px;
+}
+
 .card-value {
     font-size: 2.5rem;
     font-weight: 700;
