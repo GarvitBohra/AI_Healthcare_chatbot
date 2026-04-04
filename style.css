@@ -332,3 +332,17 @@ body {
         padding: 20px;
     }
 }
+
+/* ============================ */
+/* SPA Routing Configurations   */
+/* ============================ */
+.view {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.view.section-active {
+    display: block;
+    opacity: 1;
+}

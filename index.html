@@ -43,40 +43,62 @@
             
             <header class="top-header">
                 <h1>Welcome back, Jane! 👋</h1>
-                <p>Track your health and securely communicate with your doctor.</p>
+                <p>Track your health and securely coordinate with your clinical team.</p>
             </header>
 
-            <div class="dashboard-grid">
-                <!-- Vitals Tracking Section -->
-                <section class="vitals-section fade-in">
-                    <h3>Today's Vitals</h3>
-                    <div class="cards-container">
-                        
-                        <div class="metric-card hover-glow">
-                            <div class="card-header">
-                                <span class="material-symbols-outlined icon" aria-hidden="true">monitor_heart</span>
-                                <h4>Heart Rate</h4>
+            <!-- ================= VIEW: DASHBOARD ================= -->
+            <div id="view-dashboard" class="view section-active">
+                <div class="dashboard-grid">
+                    <!-- Vitals Tracking Section -->
+                    <section class="vitals-section fade-in">
+                        <h3>Today's Vitals</h3>
+                        <div class="cards-container">
+                            
+                            <div class="metric-card hover-glow">
+                                <div class="card-header">
+                                    <span class="material-symbols-outlined icon" aria-hidden="true">monitor_heart</span>
+                                    <h4>Heart Rate</h4>
+                                </div>
+                                <div class="card-value" id="heart-rate-display">72 <span class="unit">bpm</span></div>
+                                <p class="status normal">Normal</p>
                             </div>
-                            <div class="card-value" id="heart-rate-display">72 <span class="unit">bpm</span></div>
-                            <p class="status normal">Normal</p>
-                        </div>
 
-                        <div class="metric-card hover-glow">
-                            <div class="card-header">
-                                <span class="material-symbols-outlined icon" aria-hidden="true">water_drop</span>
-                                <h4>Blood Pressure</h4>
+                            <div class="metric-card hover-glow">
+                                <div class="card-header">
+                                    <span class="material-symbols-outlined icon" aria-hidden="true">water_drop</span>
+                                    <h4>Blood Pressure</h4>
+                                </div>
+                                <div class="card-value" id="bp-display">120/80 <span class="unit">mmHg</span></div>
+                                <p class="status normal">Excellent</p>
                             </div>
-                            <div class="card-value" id="bp-display">120/80 <span class="unit">mmHg</span></div>
-                            <p class="status normal">Excellent</p>
+
                         </div>
+                    </section>
 
-                    </div>
-                </section>
+                    <!-- In-Person Care Coordination Section (Google Maps Embed) -->
+                    <section class="care-location-section fade-in delay-1">
+                        <h3>Nearest Care Provider</h3>
+                        <div class="map-container" style="border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12094.57348593182!2d-74.00581699999999!3d40.725178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598f988156a9%3A0xd54629bdf9d61d68!2sNew%20York%20University!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                                width="100%" 
+                                height="250" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                aria-label="Google Map showing nearest healthcare provider">
+                            </iframe>
+                        </div>
+                    </section>
+                </div>
+            </div>
 
-                <!-- Secure Communication Section (Firebase Mock) -->
-                <section class="chat-section fade-in delay-1">
+            <!-- ================= VIEW: MESSAGES ================= -->
+            <div id="view-messages" class="view" style="display: none;">
+                <section class="chat-section fade-in" style="max-width: 800px; margin: 0 auto; height: 75vh; display: flex; flex-direction: column;">
                     <h3>Health Assistant</h3>
-                    <div class="chat-box" id="chat-box">
+                    <div class="chat-box" id="chat-box" style="flex: 1; margin-bottom: 20px;">
                         <div class="message received">
                             <p><strong>Health Assistant:</strong> Hello Jane! I am your virtual health assistant. How can I help coordinate your care today?</p>
                         </div>
@@ -86,31 +108,43 @@
                         <input type="text" id="message-input" placeholder="Type a message to your assistant..." aria-label="Chat message input field">
                         <button id="send-btn" class="primary-btn" aria-label="Send message to assistant">Send</button>
                     </div>
-                    <p class="cloud-note">Hosted securely on Google Cloud</p>
+                    <p class="cloud-note" style="text-align: center;">Hosted securely on Google Cloud</p>
                 </section>
             </div>
 
-            <!-- In-Person Care Coordination Section (Google Maps Embed) -->
-            <section class="care-location-section fade-in delay-1" style="margin-top: 30px;">
-                <h3>Nearest Care Provider</h3>
-                <div class="map-container" style="border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12094.57348593182!2d-74.00581699999999!3d40.725178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598f988156a9%3A0xd54629bdf9d61d68!2sNew%20York%20University!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
-                        width="100%" 
-                        height="250" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        aria-label="Google Map showing nearest healthcare provider">
-                    </iframe>
+            <!-- ================= VIEW: HEALTH METRICS (JSON DB) ================= -->
+            <div id="view-metrics" class="view" style="display: none;">
+                <h2 style="margin-bottom: 20px;">Patient Cohort Database</h2>
+                <div id="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <!-- JS Database payload injected here -->
                 </div>
-            </section>
+            </div>
+
+            <!-- ================= VIEW: SETTINGS ================= -->
+            <div id="view-settings" class="view" style="display: none;">
+                <h2 style="margin-bottom: 20px;">System Preferences</h2>
+                <div class="metric-card" style="max-width: 500px;">
+                    <h4>Appearance</h4>
+                    <label style="display: flex; gap: 10px; margin: 15px 0; cursor: pointer; align-items: center;">
+                        <input type="checkbox" checked style="width: 20px; height: 20px;"> Dark Mode Enabled
+                    </label>
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+                    <h4>Notifications</h4>
+                    <label style="display: flex; gap: 10px; margin: 15px 0; cursor: pointer; align-items: center;">
+                        <input type="checkbox" checked style="width: 20px; height: 20px;"> Receive Email Alerts
+                    </label>
+                    <label style="display: flex; gap: 10px; margin: 15px 0; cursor: pointer; align-items: center;">
+                        <input type="checkbox" style="width: 20px; height: 20px;"> Receive SMS Alerts
+                    </label>
+                    <button class="primary-btn" style="margin-top: 15px; width: 100%;">Save Preferences</button>
+                </div>
+            </div>
 
         </main>
     </div>
 
-    <!-- Main Logic Script (Render-optimized) -->
+    <!-- Security & Data Layer -->
+    <script src="database.js" defer></script>
     <script src="app.js" defer></script>
 </body>
 </html>
