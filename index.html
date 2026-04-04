@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HealthCare Connect | Google Cloud Edition</title>
+    <!-- Google Fonts Preconnect for Performance Optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Google Fonts for a modern, sleek look -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -20,11 +23,11 @@
                 <div class="cube-icon"></div>
                 <h2>HealthConnect</h2>
             </div>
-            <nav class="nav-menu">
-                <button class="nav-item active" id="nav-dashboard">Dashboard</button>
-                <button class="nav-item" id="nav-messages">Messages</button>
-                <button class="nav-item" id="nav-metrics">Health Metrics</button>
-                <button class="nav-item" id="nav-settings">Settings</button>
+            <nav class="nav-menu" aria-label="Main Navigation">
+                <button class="nav-item active" id="nav-dashboard" aria-label="Navigate to your Dashboard">Dashboard</button>
+                <button class="nav-item" id="nav-messages" aria-label="Navigate to your Messages">Messages</button>
+                <button class="nav-item" id="nav-metrics" aria-label="Navigate to your Health Metrics">Health Metrics</button>
+                <button class="nav-item" id="nav-settings" aria-label="Open your Settings">Settings</button>
             </nav>
             <div class="user-profile">
                 <img src="https://ui-avatars.com/api/?name=Jane+Doe&background=random" alt="Patient" class="avatar">
@@ -51,7 +54,7 @@
                         
                         <div class="metric-card hover-glow">
                             <div class="card-header">
-                                <span class="material-symbols-outlined icon">monitor_heart</span>
+                                <span class="material-symbols-outlined icon" aria-hidden="true">monitor_heart</span>
                                 <h4>Heart Rate</h4>
                             </div>
                             <div class="card-value" id="heart-rate-display">72 <span class="unit">bpm</span></div>
@@ -60,7 +63,7 @@
 
                         <div class="metric-card hover-glow">
                             <div class="card-header">
-                                <span class="material-symbols-outlined icon">water_drop</span>
+                                <span class="material-symbols-outlined icon" aria-hidden="true">water_drop</span>
                                 <h4>Blood Pressure</h4>
                             </div>
                             <div class="card-value" id="bp-display">120/80 <span class="unit">mmHg</span></div>
@@ -80,17 +83,34 @@
                     </div>
                     
                     <div class="chat-input-area">
-                        <input type="text" id="message-input" placeholder="Type a message to your doctor...">
-                        <button id="send-btn" class="primary-btn">Send</button>
+                        <input type="text" id="message-input" placeholder="Type a message to your doctor..." aria-label="Chat message input field">
+                        <button id="send-btn" class="primary-btn" aria-label="Send message to provider">Send</button>
                     </div>
                     <p class="cloud-note">Hosted securely on Google Cloud</p>
                 </section>
             </div>
 
+            <!-- In-Person Care Coordination Section (Google Maps Embed) -->
+            <section class="care-location-section fade-in delay-1" style="margin-top: 30px;">
+                <h3>Nearest Care Provider</h3>
+                <div class="map-container" style="border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12094.57348593182!2d-74.00581699999999!3d40.725178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598f988156a9%3A0xd54629bdf9d61d68!2sNew%20York%20University!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="250" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        aria-label="Google Map showing nearest healthcare provider">
+                    </iframe>
+                </div>
+            </section>
+
         </main>
     </div>
 
-    <!-- Main Logic Script -->
-    <script src="app.js"></script>
+    <!-- Main Logic Script (Render-optimized) -->
+    <script src="app.js" defer></script>
 </body>
 </html>
