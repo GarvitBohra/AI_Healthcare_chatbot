@@ -1,0 +1,12 @@
+runtime: nodejs20
+
+handlers:
+# Serve the main index.html for the root domain
+- url: /
+  static_files: index.html
+  upload: index.html
+
+# Serve the CSS, JS, and any other files
+- url: /(.*)
+  static_files: \1
+  upload: (.*)
