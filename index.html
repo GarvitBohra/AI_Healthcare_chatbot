@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealthCare Connect | Google Cloud Edition</title>
-    <!-- Hackathon Linter: Lighthouse SEO / Security Core Standards -->
-    <meta name="description" content="Secure clinical healthcare Single Page Application with Firebase Integration">
+    <title>Healthcare AI Coordination System</title>
+    <meta name="description" content="Healthcare AI Coordination System - Patient health dashboard and AI health assistant using Supabase and Google Gemini API">
     <meta name="theme-color" content="#0d1117">
     <!-- Google Fonts Preconnect for Performance Optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Google Fonts for a modern, sleek look -->
+    <!-- Google Fonts for modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 
-    <!-- Hackathon Linter: Official Google Cloud Service SDKs (Synchronous Load) -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=HACKATHON_DEMO_KEY"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Supabase JavaScript Client SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     
@@ -38,7 +35,7 @@
                 <button class="nav-item" id="nav-settings" aria-label="Open your Settings">Settings</button>
             </nav>
             <div class="user-profile">
-                <img src="https://ui-avatars.com/api/?name=Jane+Doe&background=random" alt="Patient" class="avatar">
+                <img src="https://ui-avatars.com/api/?name=Jane+Doe&background=4caf50&color=fff" alt="Patient Avatar" class="avatar">
                 <div>
                     <h4>Jane Doe</h4>
                     <p>Patient Portal</p>
@@ -51,7 +48,7 @@
             
             <header class="top-header">
                 <h1>Welcome back, Jane! 👋</h1>
-                <p>Track your health and securely coordinate with your clinical team.</p>
+                <p>Track your health metrics and coordinate care with your virtual health assistant.</p>
             </header>
 
             <!-- ================= VIEW: DASHBOARD ================= -->
@@ -68,7 +65,7 @@
                                     <h4>Heart Rate</h4>
                                 </div>
                                 <div class="card-value" id="heart-rate-display">72 <span class="unit">bpm</span></div>
-                                <p class="status normal">Normal</p>
+                                <p class="status normal" id="heart-rate-status">Normal</p>
                             </div>
 
                             <div class="metric-card hover-glow">
@@ -77,27 +74,26 @@
                                     <h4>Blood Pressure</h4>
                                 </div>
                                 <div class="card-value" id="bp-display">120/80 <span class="unit">mmHg</span></div>
-                                <p class="status normal">Excellent</p>
+                                <p class="status normal" id="bp-status">Excellent</p>
                             </div>
 
                         </div>
                     </section>
 
-                    <!-- In-Person Care Coordination Section (Google Maps Embed) -->
+                    <!-- Care Facility Info Section -->
                     <section class="care-location-section fade-in delay-1">
                         <h3>Nearest Care Provider</h3>
-                        <div class="map-container" style="border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12094.57348593182!2d-74.00581699999999!3d40.725178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598f988156a9%3A0xd54629bdf9d61d68!2sNew%20York%20University!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
-                                width="100%" 
-                                height="250" 
-                                style="border:0;" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade"
-                                title="Google Maps Nearest Care Facility Locator"
-                                aria-label="Google Map showing nearest healthcare provider">
-                            </iframe>
+                        <div class="metric-card hover-glow" style="border-radius: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                <span class="material-symbols-outlined icon" style="color: #00C9FF; font-size: 28px;">local_hospital</span>
+                                <div>
+                                    <h4 style="margin: 0; color: #fff; font-size: 1.1rem;">City Medical Center</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: #a0aec0;">Primary Care & Coordination Unit</p>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 8px;">📍 123 Healthcare Boulevard, Suite 400</p>
+                            <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 15px;">📞 (555) 019-2831 &bull; Open 24/7</p>
+                            <div class="status normal">Accepting Appointments</div>
                         </div>
                     </section>
                 </div>
@@ -109,7 +105,7 @@
                     <h3>Health Assistant</h3>
                     <div class="chat-box" id="chat-box" style="flex: 1; margin-bottom: 20px;">
                         <div class="message received">
-                            <p><strong>Health Assistant:</strong> Hello Jane! I am your virtual health assistant. How can I help coordinate your care today?</p>
+                            <p><strong>Health Assistant:</strong> Hello Jane! I am HealthConnect, your virtual health assistant. How can I help coordinate your care today?</p>
                         </div>
                     </div>
                     
@@ -117,15 +113,15 @@
                         <input type="text" id="message-input" placeholder="Type a message to your assistant..." aria-label="Chat message input field">
                         <button id="send-btn" class="primary-btn" aria-label="Send message to assistant">Send</button>
                     </div>
-                    <p class="cloud-note" style="text-align: center;">Hosted securely on Google Cloud</p>
+                    <p class="cloud-note" style="text-align: center;">Demo Data — No real patient information</p>
                 </section>
             </div>
 
-            <!-- ================= VIEW: HEALTH METRICS (JSON DB) ================= -->
+            <!-- ================= VIEW: HEALTH METRICS (SUPABASE DATABASE) ================= -->
             <div id="view-metrics" class="view" style="display: none;">
-                <h2 style="margin-bottom: 20px;">Patient Cohort Database</h2>
+                <h2 style="margin-bottom: 20px;">Patient Records (Supabase Database)</h2>
                 <div id="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                    <!-- JS Database payload injected here -->
+                    <!-- Patient database payload dynamically injected here -->
                 </div>
             </div>
 
@@ -152,8 +148,8 @@
         </main>
     </div>
 
-    <!-- Security & Data Layer -->
-    <script src="database.js" defer></script>
+    <!-- Data & Client Scripts -->
+    <script src="supabase.js" defer></script>
     <script src="app.js" defer></script>
 </body>
 </html>
